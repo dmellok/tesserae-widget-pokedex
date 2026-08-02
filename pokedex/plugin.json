@@ -1,0 +1,267 @@
+{
+  "tesserae_compat": "1.x",
+  "name": "pokedex",
+  "version": "0.2.0",
+  "kind": "widget",
+  "description": "A Pokédex entry from PokéAPI — real base stats, types, pixel sprite and dex text. Rolls a random Pokémon every refresh (or daily / a fixed pick). Three looks: house style, classic red Pokédex device, or Game Boy mono green.",
+  "icon": "ph-lightning",
+  "requires": [
+    "network:pokeapi.co"
+  ],
+  "supports": {
+    "sizes": [
+      "xs",
+      "sm",
+      "md",
+      "lg"
+    ]
+  },
+  "cell_options": [
+    {
+      "name": "mode",
+      "type": "select",
+      "label": "Pokémon",
+      "default": "random",
+      "choices": [
+        {
+          "value": "random",
+          "label": "Random every refresh"
+        },
+        {
+          "value": "daily",
+          "label": "Pokémon of the day"
+        },
+        {
+          "value": "pick",
+          "label": "Fixed pick (name below)"
+        }
+      ]
+    },
+    {
+      "name": "pokemon",
+      "type": "string",
+      "label": "Name or dex number (for Fixed pick)",
+      "default": ""
+    },
+    {
+      "name": "pool",
+      "type": "select",
+      "label": "Pool",
+      "default": "gen1",
+      "choices": [
+        {
+          "value": "gen1",
+          "label": "Original 151 (Kanto)"
+        },
+        {
+          "value": "gen2",
+          "label": "Gen I–II (251)"
+        },
+        {
+          "value": "gen3",
+          "label": "Gen I–III (386)"
+        },
+        {
+          "value": "all",
+          "label": "All (1025)"
+        }
+      ]
+    },
+    {
+      "name": "show_art",
+      "type": "boolean",
+      "label": "Use painted artwork instead of pixel sprite",
+      "default": false
+    },
+    {
+      "name": "theme",
+      "type": "select",
+      "label": "Theme",
+      "default": "house",
+      "choices": [
+        {
+          "value": "house",
+          "label": "House style (Spectra)"
+        },
+        {
+          "value": "pokedex",
+          "label": "Pokédex (classic red)"
+        },
+        {
+          "value": "gameboy",
+          "label": "Game Boy (mono green)"
+        }
+      ]
+    }
+  ],
+  "fragments": [
+    {
+      "id": "sprite",
+      "label": "Sprite",
+      "w": 160,
+      "h": 160
+    },
+    {
+      "id": "stats",
+      "label": "Base stats",
+      "w": 200,
+      "h": 160
+    }
+  ],
+  "data_schema": {
+    "fields": [
+      {
+        "name": "abilities",
+        "label": "Abilities",
+        "type": "arr"
+      },
+      {
+        "name": "base_exp",
+        "label": "Base exp",
+        "type": "num"
+      },
+      {
+        "name": "capture_rate",
+        "label": "Capture rate",
+        "type": "num"
+      },
+      {
+        "name": "fetched_at",
+        "label": "Fetched at",
+        "type": "num"
+      },
+      {
+        "name": "flavor",
+        "label": "Flavor",
+        "type": "str"
+      },
+      {
+        "name": "generation",
+        "label": "Generation",
+        "type": "str"
+      },
+      {
+        "name": "genus",
+        "label": "Genus",
+        "type": "str"
+      },
+      {
+        "name": "height_m",
+        "label": "Height m",
+        "type": "num"
+      },
+      {
+        "name": "id",
+        "label": "Id",
+        "type": "num"
+      },
+      {
+        "name": "is_legendary",
+        "label": "Is legendary",
+        "type": "str"
+      },
+      {
+        "name": "is_mythical",
+        "label": "Is mythical",
+        "type": "str"
+      },
+      {
+        "name": "mode",
+        "label": "Mode",
+        "type": "str"
+      },
+      {
+        "name": "name",
+        "label": "Name",
+        "type": "str"
+      },
+      {
+        "name": "sprite_art",
+        "label": "Sprite art",
+        "type": "str"
+      },
+      {
+        "name": "sprite_pixel",
+        "label": "Sprite pixel",
+        "type": "str"
+      },
+      {
+        "name": "stat_total",
+        "label": "Stat total",
+        "type": "num"
+      },
+      {
+        "name": "stats.atk",
+        "label": "Atk",
+        "type": "num"
+      },
+      {
+        "name": "stats.def",
+        "label": "Def",
+        "type": "num"
+      },
+      {
+        "name": "stats.hp",
+        "label": "Hp",
+        "type": "num"
+      },
+      {
+        "name": "stats.spa",
+        "label": "Spa",
+        "type": "num"
+      },
+      {
+        "name": "stats.spd",
+        "label": "Spd",
+        "type": "num"
+      },
+      {
+        "name": "stats.spe",
+        "label": "Spe",
+        "type": "num"
+      },
+      {
+        "name": "types",
+        "label": "Types",
+        "type": "arr"
+      },
+      {
+        "name": "weight_kg",
+        "label": "Weight kg",
+        "type": "num"
+      }
+    ],
+    "sample": {
+      "abilities": [
+        "Static"
+      ],
+      "base_exp": 112,
+      "capture_rate": 190,
+      "fetched_at": 1785676658,
+      "flavor": "When several of these POKéMON gather, their electricity coul…",
+      "generation": "I",
+      "genus": "Mouse Pokémon",
+      "height_m": 0.4,
+      "id": 25,
+      "is_legendary": false,
+      "is_mythical": false,
+      "mode": "pick",
+      "name": "Pikachu",
+      "sprite_art": "https://raw.githubusercontent.com/PokeAPI/sprites/master/spr…",
+      "sprite_pixel": "https://raw.githubusercontent.com/PokeAPI/sprites/master/spr…",
+      "stat_total": 320,
+      "stats": {
+        "atk": 55,
+        "def": 40,
+        "hp": 35,
+        "spa": 50,
+        "spd": 50,
+        "spe": 90
+      },
+      "types": [
+        "ELECTRIC"
+      ],
+      "weight_kg": 6.0
+    }
+  }
+}
