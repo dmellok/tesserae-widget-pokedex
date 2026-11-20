@@ -89,3 +89,13 @@ def test_fetch_error_is_friendly(monkeypatch):
     monkeypatch.setattr(server, "_get_json", lambda url, **k: (None, "PokéAPI is having trouble right now."))
     out = server.fetch({"mode": "pick", "pokemon": "missingno"}, {}, ctx={})
     assert "error" in out
+
+
+def test_dex_text_option_defaults_to_two_lines():
+    import json
+    from pathlib import Path
+
+    manifest = json.loads((Path(server.__file__).parent / "plugin.json").read_text())
+    opt = next(o for o in manifest["cell_options"] if o["name"] == "dex_text")
+    assert opt["default"] == "short"
+    assert [c["value"] for c in opt["choices"]] == ["short", "full", "off"]

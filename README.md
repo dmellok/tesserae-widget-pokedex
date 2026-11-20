@@ -10,6 +10,8 @@ A Pokédex entry card for [Tesserae](https://github.com/dmellok/tesserae-widgets
 
 The **pool** option bounds random/daily rolls: original Kanto 151 (default), Gen I–II, Gen I–III, or all 1025.
 
+The **Dex text** option sets how much of the Pokédex entry shows: **Two lines** (default), **Full entry**, which takes room from the sprite and stats so the whole entry fits, or **Hidden**.
+
 ## Themes
 
 - **House style** — clean Spectra card that follows your dashboard theme.
