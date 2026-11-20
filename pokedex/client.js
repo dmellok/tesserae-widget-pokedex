@@ -158,15 +158,31 @@ export default function (shadow, ctx) {
       @container (orientation: portrait) {
         .fs-text, .t-gameboy .flavor { -webkit-line-clamp: 4; }
       }
+      /* Dex text: Full entry lifts the line clamp; the row above shrinks
+         (.mid is flex: 1 with min-height: 0) to give the text its room. */
+      .dex-full .flavor, .dex-full .fs-text { display: block; -webkit-line-clamp: unset;
+                                              overflow: visible; }
+      .dex-full .flavor-screen { overflow: visible; }
+      /* The dex screen's green text is the largest; at full length it takes
+         the Game Boy size so the stats keep a row. The squeezed row clips
+         instead of spilling over the name, and safe centring keeps the
+         first stat in view when they no longer all fit. */
+      .dex-full .fs-text { font-size: min(3.2cqw, 4.4cqh); }
+      .dex-full .mid { overflow: hidden; align-items: stretch; }
+      .dex-full .sprite { align-self: center; }
+      .dex-full .stats { justify-content: safe center; }
+
       /* tight cells: drop the wordy bits before they overflow */
       @container (max-height: 130px) {
         .flavor, .flavor-screen, .genus, .hw { display: none; }
       }
     </style>`;
 
+  const dexText = o.dex_text === "full" || o.dex_text === "off" ? o.dex_text : "short";
+
   const wrap = (inner, cls) => {
-    shadow.innerHTML =
-      `${styles}<div class="w${cls ? " " + cls : ""}">${inner}</div>`;
+    const all = [cls, dexText === "full" ? "dex-full" : ""].filter(Boolean).join(" ");
+    shadow.innerHTML = `${styles}<div class="w${all ? " " + all : ""}">${inner}</div>`;
   };
   const themeCls = themed ? `t-${theme}` : "";
 
@@ -176,6 +192,7 @@ export default function (shadow, ctx) {
   }
 
   const img = (o.show_art ? d.sprite_art : d.sprite_pixel) || d.sprite_art || d.sprite_pixel;
+  const flavor = dexText === "off" ? "" : d.flavor;
   const no = d.id ? "#" + String(d.id).padStart(3, "0") : "";
   const dexNo = d.id ? "Nº" + String(d.id).padStart(3, "0") : "";
   const statsHtml = STAT_ROWS.map(([k, label]) => {
@@ -230,8 +247,8 @@ export default function (shadow, ctx) {
         `<div class="mid">${spriteHtml}<div class="stats">${statsHtml}</div></div>` +
         `<div class="head" style="gap:2cqmin"><div class="types">${typesHtml}</div>` +
         `<span style="margin-left:auto"></span>${hwHtml}</div>` +
-        (d.flavor
-          ? `<div class="flavor-screen"><div class="fs-text">${esc(d.flavor)}</div></div>`
+        (flavor
+          ? `<div class="flavor-screen"><div class="fs-text">${esc(flavor)}</div></div>`
           : "") +
         `</div></div></div>`,
       themeCls
@@ -249,7 +266,7 @@ export default function (shadow, ctx) {
         `<div class="mid">${spriteHtml}<div class="stats">${statsHtml}</div></div>` +
         `<div class="head" style="gap:2cqmin"><div class="types">${typesHtml}</div>` +
         `<span style="margin-left:auto"></span>${hwHtml}</div>` +
-        (d.flavor ? `<div class="flavor">${esc(d.flavor)}</div>` : "") +
+        (flavor ? `<div class="flavor">${esc(flavor)}</div>` : "") +
         `</div>`,
       themeCls
     );
@@ -264,7 +281,7 @@ export default function (shadow, ctx) {
       `</div>` +
       `<div class="mid">${spriteHtml}<div class="stats">${statsHtml}</div></div>` +
       `<div class="types">${typesHtml}</div>` +
-      (d.flavor ? `<div class="flavor">${esc(d.flavor)}</div>` : "") +
+      (flavor ? `<div class="flavor">${esc(flavor)}</div>` : "") +
       `</div>`,
     themeCls
   );

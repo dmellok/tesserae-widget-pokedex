@@ -1,7 +1,7 @@
 {
   "tesserae_compat": "1.x",
   "name": "pokedex",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "kind": "widget",
   "description": "A Pokédex entry from PokéAPI — real base stats, types, pixel sprite and dex text. Rolls a random Pokémon every refresh (or daily / a fixed pick). Three looks: house style, classic red Pokédex device, or Game Boy mono green.",
   "icon": "ph-lightning",
@@ -72,6 +72,27 @@
       "type": "boolean",
       "label": "Use painted artwork instead of pixel sprite",
       "default": false
+    },
+    {
+      "name": "dex_text",
+      "type": "select",
+      "label": "Dex text",
+      "help": "How much of the Pokédex entry to show. Full entry gives the text the room it needs, taken from the sprite and stats, so in a small cell some stats may be cut off.",
+      "default": "short",
+      "choices": [
+        {
+          "value": "short",
+          "label": "Two lines"
+        },
+        {
+          "value": "full",
+          "label": "Full entry"
+        },
+        {
+          "value": "off",
+          "label": "Hidden"
+        }
+      ]
     },
     {
       "name": "theme",
